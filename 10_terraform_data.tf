@@ -7,7 +7,24 @@ resource "terraform_data" "script" {
     timeout = "2m"
   }
 
+  provisioner "file" {
+    source = "${path.module}/traefik"
+    destination = "/home/ubuntu/traefik"
+  }
+
   provisioner "remote-exec" {
     script = "${path.module}/scripts/docker_install.sh"
+  }
+
+  provisioner "remote-exec" {
+    inline = [ 
+      "mkdir ~/traefik/acme",
+      "touch ~/traefik/acme/acme.json",
+      "chmod 600 ~/traefik/acme/acme.json",
+
+      "docker network create traefik",
+      "echo \"TRAEFIK_HOST=${var.domain_name}\" >> ~/traefik/.env",
+      "sed 's/$${TRAEFIK_EMAIL}/${var.email}/g' ~/traefik/traefik/traefik.yml"
+    ]
   }
 }
