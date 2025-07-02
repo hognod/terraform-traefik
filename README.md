@@ -1,5 +1,7 @@
 # Terraform Traefik 인프라 구축
 
+해당 README.md 파일은 Claude의 Github MCP를 이용해 작성되었습니다.
+
 이 프로젝트는 Terraform을 사용하여 AWS에서 Traefik 프록시 서버를 자동으로 배포하는 Infrastructure as Code(IaC) 솔루션입니다.
 
 ## 📋 개요
@@ -131,7 +133,13 @@
 
 3. **SSH 접속**
    ```bash
-   ssh -i private_key.pem ubuntu@{public-ip}
+   echo {output key 내용} >> traefik.pem
+   ```
+   ```bash
+   chmod 400 traefik.pem
+   ```
+   ```bash
+   ssh -i traefik.pem ubuntu@{public-ip}
    ```
 
 ## 🛡️ 보안 고려사항
@@ -146,15 +154,3 @@
 - 설정 변경 후 `terraform apply`로 인프라 업데이트
 - `terraform destroy`로 전체 인프라 삭제 가능
 - Traefik 설정은 `traefik/` 디렉토리에서 관리
-
-## 📝 라이선스
-
-이 프로젝트는 MIT 라이선스 하에 제공됩니다.
-
-## 🤝 기여
-
-이슈나 개선 사항이 있다면 언제든지 GitHub Issues나 Pull Request를 통해 기여해 주세요!
-
----
-
-⭐ 이 프로젝트가 도움이 되었다면 스타를 눌러주세요!
