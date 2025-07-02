@@ -24,7 +24,7 @@ resource "terraform_data" "script" {
 
       "docker network create traefik",
       "echo \"TRAEFIK_HOST=${var.domain_name}\" >> ~/traefik/.env",
-      "sed 's/$${TRAEFIK_EMAIL}/${var.email}/g' ~/traefik/traefik/traefik.yml"
+      "sed -i 's/$${TRAEFIK_EMAIL}/${var.email}/g' ~/traefik/traefik/traefik.yml"
     ]
   }
 }
