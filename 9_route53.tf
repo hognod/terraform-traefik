@@ -10,3 +10,11 @@ resource "aws_route53_record" "record" {
   ttl     = 300
   records = [ aws_instance.public.public_ip ]
 }
+
+resource "aws_route53_record" "record-sub" {
+  zone_id = data.aws_route53_zone.public_hosted_zone.zone_id
+  name    = "*.${var.domain_name}"
+  type    = "A"
+  ttl     = 300
+  records = [ aws_instance.public.public_ip ]
+}
